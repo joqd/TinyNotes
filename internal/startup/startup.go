@@ -1,12 +1,19 @@
 package startup
 
 import (
-	"log"
-
 	"github.com/joqd/TinyNotes/internal/adapter/config"
+	"github.com/joqd/TinyNotes/internal/adapter/server"
+	"github.com/joqd/TinyNotes/internal/adapter/server/handler"
 )
 
 func LetsFuckingGo() {
 	conf := config.Load()
-	log.Printf("app running on %d", conf.App.Port)
+	srv := server.New(conf)
+
+	handlers := handler.Handlers{
+		HealthHandler: handler.NewPingHandler(),
+	}
+
+	srv.SetupRouter(handlers)
+	srv.Start()
 }
