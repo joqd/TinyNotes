@@ -1,0 +1,19 @@
+{{ define "layout" }}
+<!doctype html>
+<html>
+<head>
+  <title>{{ .title }}</title>
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+{{ template "components/header" . }}
+
+<div class="container mt-4">
+  {{ block "content" . }}{{ end }}
+</div>
+
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{{ end }}

@@ -17,5 +17,7 @@ func NewPingHandler() HealthHandler {
 }
 
 func (hh *healthHandler) Ping(c echo.Context) error {
-	return c.Render(http.StatusOK, "ping", "Pong")
+	return c.Render(http.StatusOK, "pages/health/ping", map[string]any{
+		"title": "Ping",
+	})
 }

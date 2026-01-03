@@ -3,6 +3,9 @@ package server
 import (
 	"fmt"
 	"html/template"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/joqd/TinyNotes/internal/adapter/config"
 	"github.com/labstack/echo/v4"
@@ -18,11 +21,18 @@ func New(conf *config.Config) *Server {
 	e.HideBanner = true
 	e.Debug = conf.App.Debug
 
-	t := &Template{
-		templates: template.Must(template.ParseGlob("public/views/*.html")),
-	}
+	tmpl := template.New("")
+	filepath.Walk("public/views", func(path string, info os.FileInfo, err error) error {
+		if !info.IsDir() && strings.HasSuffix(path, ".html") {
+			_, err = tmpl.ParseFiles(path)
+		}
+		return err
+	})
+
+	t := &Template{templates: tmpl}
 
 	e.Renderer = t
+	e.Static("/assets", "public/assets")
 
 	return &Server{e: e, conf: conf}
 }
