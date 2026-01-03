@@ -1,7 +1,9 @@
 package main
 
-import "log"
+import (
+	"github.com/joqd/TinyNotes/internal/startup"
+)
 
 func main() {
-	log.Println("hello world")
+	startup.LetsFuckingGo()
 }
