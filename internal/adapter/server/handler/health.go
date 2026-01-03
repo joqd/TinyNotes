@@ -17,5 +17,5 @@ func NewPingHandler() HealthHandler {
 }
 
 func (hh *healthHandler) Ping(c echo.Context) error {
-	return c.String(http.StatusOK, "Pong")
+	return c.Render(http.StatusOK, "ping", "Pong")
 }
