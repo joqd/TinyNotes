@@ -1,0 +1,2 @@
+# TinyNotes
+My awesome blog
